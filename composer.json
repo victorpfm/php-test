@@ -28,7 +28,8 @@
     },
     "scripts": {
         "test": "phpunit --testdox --colors=always",
-        "check": "phpcs -p --standard=phpcs.xml"
+        "check": "phpcs -p --standard=phpcs.xml",
+        "fix": "phpcbf -p --standard=phpcs.xml"
     },
     "config": {
         "sort-packages": true
