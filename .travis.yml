@@ -2,6 +2,7 @@ language: php
 
 env:
   - CODECOV_TOKEN="1bd6acc5-1423-4e35-9c0d-36e53402d5d6"
+  - XDEBUG_MODE=coverage
 
 cache:
   directories:
