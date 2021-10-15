@@ -1,7 +1,8 @@
 # Live eCommerce - Teste para PHP
 
-[![TravisCI][icon-travisci]][link-travisci]
-[![Code Coverage][icon-codecov]][link-codecov]
+
+[![Build Status](https://app.travis-ci.com/victorpfm/php-test.svg?branch=master)](https://app.travis-ci.com/victorpfm/php-test)
+[![codecov](https://codecov.io/gh/victorpfm/php-test/branch/master/graph/badge.svg?token=Z7FW6LMM75)](https://codecov.io/gh/victorpfm/php-test)
 
 Este repositório contém uma implementação básica de coleções. Coleções armazenam dados pelo esquema de chave-valor, onde um valor é representado por uma chave.
 
