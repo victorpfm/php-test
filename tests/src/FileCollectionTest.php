@@ -19,6 +19,16 @@ class FileCollectionTest extends TestCase
     /**
      * @test
      * @depends objectCanBeConstructed
+     */
+    public function collectionFileCanBeCreated()
+    {
+        $collection = new FileCollection('collection2');
+        $this->assertFileExists(dirname(__DIR__, 2) . "/database/collection2.json");
+    }
+
+    /**
+     * @test
+     * @depends collectionFileCanBeCreated
      * @doesNotPerformAssertions
      */
     public function dataCanBeAdded()
