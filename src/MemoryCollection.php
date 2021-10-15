@@ -33,15 +33,23 @@ class MemoryCollection implements CollectionInterface
             return $defaultValue;
         }
 
-        return $this->data[$index];
+        if (!$this->isValid($index)) {
+            unset($this->data[$index]);
+            return $defaultValue;
+        }
+
+        return $this->data[$index]['value'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function set(string $index, $value)
+    public function set(string $index, $value, $ttl = 60)
     {
-        $this->data[$index] = $value;
+        $this->data[$index] = [
+            'value' => $value,
+            'validUntil' => time() + $ttl
+        ];
     }
 
     /**
@@ -49,7 +57,15 @@ class MemoryCollection implements CollectionInterface
      */
     public function has(string $index)
     {
-        return array_key_exists($index, $this->data);
+        return isset($this->data[$index]);
+    }
+
+    /**
+     * Checks wether the index is valid or has expired
+     */
+    protected function isValid(string $index)
+    {
+        return time() < $this->data[$index]['validUntil'];
     }
 
     /**

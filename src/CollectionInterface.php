@@ -19,13 +19,14 @@ interface CollectionInterface
     public function get(string $index, $defaultValue = null);
 
     /**
-     * Adds a value to the collection
+     * Adds a value to the collection for a given time
      *
      * @param string $index
      * @param mixed $value
+     * @param int $ttl
      * @return void
      */
-    public function set(string $index, $value);
+    public function set(string $index, $value, int $ttl);
 
     /**
      * Checks whether the collection has the given index

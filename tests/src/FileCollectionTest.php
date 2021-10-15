@@ -111,4 +111,18 @@ class FileCollectionTest extends TestCase
 
         $collection->clean();
     }
+
+    /**
+     * @test
+     * @depends addedItemShouldExistInCollection
+     */
+    public function expiredItemShouldNotExistInCollection()
+    {
+        $collection = new FileCollection();
+        $collection->set('index', 'value', 1);
+
+        sleep(1);
+
+        $this->assertNull($collection->get('index'));
+    }
 }

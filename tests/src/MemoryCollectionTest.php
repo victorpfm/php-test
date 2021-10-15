@@ -104,4 +104,18 @@ class MemoryCollectionTest extends TestCase
 
         $this->assertTrue($collection->has('index'));
     }
+
+    /**
+     * @test
+     * @depends addedItemShouldExistInCollection
+     */
+    public function expiredItemShouldNotExistInCollection()
+    {
+        $collection = new FileCollection();
+        $collection->set('index', 'value', 1);
+
+        sleep(1);
+
+        $this->assertNull($collection->get('index'));
+    }
 }
