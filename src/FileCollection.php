@@ -35,6 +35,8 @@ class FileCollection implements CollectionInterface
         }
 
         $this->parseFile();
+
+        $this->clearExpiredItems();
     }
 
     /**
@@ -42,12 +44,9 @@ class FileCollection implements CollectionInterface
      */
     public function get(string $index, $defaultValue = null)
     {
-        if (!$this->has($index)) {
-            return $defaultValue;
-        }
+        $this->clearExpiredItems();
 
-        if (!$this->isValid($index)) {
-            unset($this->data[$index]);
+        if (!$this->has($index)) {
             return $defaultValue;
         }
 
@@ -151,5 +150,21 @@ class FileCollection implements CollectionInterface
             file_get_contents($this->filePath()),
             true
         );
+    }
+
+    /**
+     * Removes expired itens from the collection
+     * 
+     * @return void
+     */
+    protected function clearExpiredItems()
+    {
+        foreach ($this->data as $index => $item) {
+            if (!$this->isValid($index)) {
+                unset($this->data[$index]);
+            }
+        }
+
+        count($this->data) ? $this->persist() : $this->clean();
     }
 }

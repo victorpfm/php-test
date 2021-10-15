@@ -29,12 +29,9 @@ class MemoryCollection implements CollectionInterface
      */
     public function get(string $index, $defaultValue = null)
     {
+        $this->clearExpiredItems();
+        
         if (!$this->has($index)) {
-            return $defaultValue;
-        }
-
-        if (!$this->isValid($index)) {
-            unset($this->data[$index]);
             return $defaultValue;
         }
 
@@ -82,5 +79,19 @@ class MemoryCollection implements CollectionInterface
     public function clean()
     {
         $this->data = [];
+    }
+
+    /**
+     * Removes expired itens from the collection
+     * 
+     * @return void
+     */
+    protected function clearExpiredItems()
+    {
+        foreach ($this->data as $index => $item) {
+            if (!$this->isValid($index)) {
+                unset($this->data[$index]);
+            }
+        }
     }
 }
