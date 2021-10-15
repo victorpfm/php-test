@@ -30,7 +30,7 @@ class MemoryCollection implements CollectionInterface
      * {@inheritDoc}
      */
     public function get(string $index, $defaultValue = null)
-    {   
+    {
         if (!$this->has($index)) {
             return $defaultValue;
         }

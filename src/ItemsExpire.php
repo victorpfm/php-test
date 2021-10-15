@@ -2,7 +2,8 @@
 
 namespace Live\Collection;
 
-trait ItemsExpire {
+trait ItemsExpire
+{
     /**
      * Checks wether the index is valid or has expired
      */
@@ -13,7 +14,7 @@ trait ItemsExpire {
 
     /**
      * Removes expired itens from the collection
-     * 
+     *
      * @return object
      */
     protected function clearExpiredItems()

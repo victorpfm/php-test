@@ -145,7 +145,7 @@ class FileCollection implements CollectionInterface
      */
     protected function persist()
     {
-        count($this->data) 
+        count($this->data)
             ? file_put_contents($this->filePath(), json_encode($this->data))
             : $this->clean();
     }
