@@ -9,6 +9,8 @@ namespace Live\Collection;
  */
 class MemoryCollection implements CollectionInterface
 {
+    use ItemsExpire;
+
     /**
      * Collection data
      *
@@ -28,9 +30,7 @@ class MemoryCollection implements CollectionInterface
      * {@inheritDoc}
      */
     public function get(string $index, $defaultValue = null)
-    {
-        $this->clearExpiredItems();
-        
+    {   
         if (!$this->has($index)) {
             return $defaultValue;
         }
@@ -60,14 +60,6 @@ class MemoryCollection implements CollectionInterface
     }
 
     /**
-     * Checks wether the index is valid or has expired
-     */
-    protected function isValid(string $index)
-    {
-        return time() < $this->data[$index]['validUntil'];
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function count(): int
@@ -81,19 +73,5 @@ class MemoryCollection implements CollectionInterface
     public function clean()
     {
         $this->data = [];
-    }
-
-    /**
-     * Removes expired itens from the collection
-     *
-     * @return void
-     */
-    protected function clearExpiredItems()
-    {
-        foreach ($this->data as $index => $item) {
-            if (!$this->isValid($index)) {
-                unset($this->data[$index]);
-            }
-        }
     }
 }

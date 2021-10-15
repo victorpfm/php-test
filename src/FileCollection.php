@@ -9,6 +9,8 @@ namespace Live\Collection;
  */
 class FileCollection implements CollectionInterface
 {
+    use ItemsExpire;
+
     /**
      * Collection data
      *
@@ -36,7 +38,7 @@ class FileCollection implements CollectionInterface
 
         $this->parseFile();
 
-        $this->clearExpiredItems();
+        $this->clearExpiredItems()->persist();
     }
 
     /**
@@ -84,16 +86,6 @@ class FileCollection implements CollectionInterface
     }
 
     /**
-     * Persists the current data to the collection file
-     *
-     * @return void
-     */
-    protected function persist()
-    {
-        file_put_contents($this->filePath(), json_encode($this->data));
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function clean()
@@ -101,6 +93,7 @@ class FileCollection implements CollectionInterface
         $this->data = [];
         $this->createEmptyFile();
     }
+
 
     /**
      * Returns a path for the collection file
@@ -146,26 +139,14 @@ class FileCollection implements CollectionInterface
     }
 
     /**
-     * Checks wether the index is valid or has expired
-     */
-    protected function isValid(string $index)
-    {
-        return time() < $this->data[$index]['validUntil'];
-    }
-
-    /**
-     * Removes expired itens from the collection
+     * Persists the current data to the collection file
      *
      * @return void
      */
-    protected function clearExpiredItems()
+    protected function persist()
     {
-        foreach ($this->data as $index => $item) {
-            if (!$this->isValid($index)) {
-                unset($this->data[$index]);
-            }
-        }
-
-        count($this->data) ? $this->persist() : $this->clean();
+        count($this->data) 
+            ? file_put_contents($this->filePath(), json_encode($this->data))
+            : $this->clean();
     }
 }
