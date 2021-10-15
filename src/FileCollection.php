@@ -14,7 +14,7 @@ class FileCollection implements CollectionInterface
      *
      * @var array
      */
-    protected array $data;
+    protected $data;
 
     /**
      * Collection name
