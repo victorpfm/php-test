@@ -44,8 +44,6 @@ class FileCollection implements CollectionInterface
      */
     public function get(string $index, $defaultValue = null)
     {
-        $this->clearExpiredItems();
-
         if (!$this->has($index)) {
             return $defaultValue;
         }
@@ -71,16 +69,11 @@ class FileCollection implements CollectionInterface
      */
     public function has(string $index)
     {
+        $this->clearExpiredItems();
+
         return isset($this->data[$index]);
     }
 
-    /**
-     * Checks wether the index is valid or has expired
-     */
-    protected function isValid(string $index)
-    {
-        return time() < $this->data[$index]['validUntil'];
-    }
 
     /**
      * {@inheritDoc}
@@ -153,8 +146,16 @@ class FileCollection implements CollectionInterface
     }
 
     /**
+     * Checks wether the index is valid or has expired
+     */
+    protected function isValid(string $index)
+    {
+        return time() < $this->data[$index]['validUntil'];
+    }
+
+    /**
      * Removes expired itens from the collection
-     * 
+     *
      * @return void
      */
     protected function clearExpiredItems()

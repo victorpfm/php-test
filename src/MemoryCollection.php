@@ -54,6 +54,8 @@ class MemoryCollection implements CollectionInterface
      */
     public function has(string $index)
     {
+        $this->clearExpiredItems();
+        
         return isset($this->data[$index]);
     }
 
@@ -83,7 +85,7 @@ class MemoryCollection implements CollectionInterface
 
     /**
      * Removes expired itens from the collection
-     * 
+     *
      * @return void
      */
     protected function clearExpiredItems()
