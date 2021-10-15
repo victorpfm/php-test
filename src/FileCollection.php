@@ -71,7 +71,7 @@ class FileCollection implements CollectionInterface
      */
     public function has(string $index)
     {
-        $this->clearExpiredItems();
+        $this->clearExpiredItems()->persist();
 
         return isset($this->data[$index]);
     }
@@ -82,6 +82,8 @@ class FileCollection implements CollectionInterface
      */
     public function count(): int
     {
+        $this->clearExpiredItems()->persist();
+        
         return count($this->data);
     }
 
