@@ -26,7 +26,7 @@ interface CollectionInterface
      * @param int $ttl
      * @return void
      */
-    public function set(string $index, $value, int $ttl);
+    public function set(string $index, $value, int $ttl = 60);
 
     /**
      * Checks whether the collection has the given index
