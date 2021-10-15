@@ -114,7 +114,7 @@ class MemoryCollectionTest extends TestCase
         $collection = new MemoryCollection();
         $collection->set('index', 'value', 1);
 
-        sleep(2);
+        sleep(1);
 
         $this->assertNull($collection->get('index'));
     }
