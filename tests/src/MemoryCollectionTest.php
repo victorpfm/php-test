@@ -111,10 +111,10 @@ class MemoryCollectionTest extends TestCase
      */
     public function expiredItemShouldNotExistInCollection()
     {
-        $collection = new FileCollection();
+        $collection = new MemoryCollection();
         $collection->set('index', 'value', 1);
 
-        sleep(1);
+        sleep(2);
 
         $this->assertNull($collection->get('index'));
     }
